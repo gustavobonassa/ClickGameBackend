@@ -13,7 +13,13 @@ routes.delete('/users/:id', controllers.UserController.destroy)
 
 routes.post('/sessions', controllers.SessionController.store)
 
+routes.get('/game', controllers.GameController.index)
+routes.get('/game/:id', controllers.GameController.show)
+
 routes.use(authMiddleware)
+
+routes.put('/shop', controllers.ShopController.update)
+routes.put('/game', controllers.GameController.update)
 
 // routes.post('/game', controllers.GameController.store)
 

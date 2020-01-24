@@ -1,4 +1,7 @@
 const User = require('../models/User')
+const GameShop = require('../models/GameShop')
+const Items = require('../models/Items')
+const Game = require('../models/Game')
 
 class UserController {
   async index (req, res) {
@@ -23,7 +26,14 @@ class UserController {
 
       user.password = undefined
 
+      const items = await Items.create({})
+      const findGameShop = await GameShop.create({ user: user._id, quantity: items._id })
+      await Game.create({ user: user._id })
+
+      await GameShop.findOne(findGameShop._id).populate('quantity')
+
       return res.send({
+        gameId:
         user,
         token: User.generateToken(user)
       })
